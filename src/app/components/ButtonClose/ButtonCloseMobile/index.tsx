@@ -1,4 +1,4 @@
-'use client'
+
 import { MdClose } from "react-icons/md";
 import styles from "../styles.module.scss";
 interface Props {

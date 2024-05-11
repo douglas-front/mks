@@ -1,7 +1,7 @@
 "use client";
 import ButtonClose from "@/app/components/ButtonClose";
 import styles from "./styles.module.scss";
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import { CartItem } from "@/app/types/products";
 import { AddCartContext } from "@/app/contexts/addCartProvider";
 import ButtonCloseMobile from "@/app/components/ButtonClose/ButtonCloseMobile";
