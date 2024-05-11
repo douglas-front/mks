@@ -1,0 +1,29 @@
+@import "../../styles/helpers";
+.button_desktop,
+.button_mobile {
+  cursor: pointer;
+  border: none;
+  border-radius: 50%;
+  background-color: $black;
+  color: $white;
+  // font-size: 1.45vw;
+
+  display: grid;
+  place-items: center;
+}
+.button_mobile {
+  overflow: hidden;
+  color: #000;
+  display: none;
+
+  padding: 1.5vw 2.9vw;
+}
+
+@media screen and (max-width: 820px) {
+  .button_mobile {
+    display: block;
+  }
+  .button_desktop {
+    display: none;
+  }
+}

@@ -1,0 +1,59 @@
+.card {
+  background-color: #fff;
+  width: 13.02vw;
+  height: 33.5vh;
+  box-shadow: 0.05vw 0.05vw 0.52vw #b6b6b6;
+  border-radius: 0.52vw;
+  display: grid;
+  place-items: center;
+
+  .bg {
+    background-color: #61616182;
+    width: 90%;
+    height: 15.77vh;
+    border-radius: 0.26vw;
+    animation: pulse 1s ease-in infinite;
+  }
+}
+.text {
+  width: 90%;
+  background-color: #61616182;
+  height: 3vh;
+  border-radius: 0.26vw;
+  animation: pulse 1s ease-in infinite;
+}
+.paragraph {
+  padding-top: 0.2vw;
+  width: 90%;
+  background-color: #61616182;
+  height: 2vh;
+  border-radius: 0.26vw;
+  animation: pulse 1s ease-in infinite;
+}
+
+@keyframes pulse {
+  0% {
+    background-color: #61616182;
+  }
+  80% {
+    background-color: #616161b8;
+  }
+  100% {
+    background-color: #61616182;
+  }
+}
+
+@media screen and (max-width: 820px) {
+  .card {
+    width: 63.07vw;
+    height: 75.08vw;
+    box-shadow: 0.2vw 0.2vw 1.12vw #b6b6b68b, -0.2vw -0.2vw 1.12vw #b6b6b68b;
+    border-radius: 3.52vw;
+    display: grid;
+    place-items: center;
+  }
+  .paragraph,
+  .text {
+    border-radius: 1vw;
+  }
+}
