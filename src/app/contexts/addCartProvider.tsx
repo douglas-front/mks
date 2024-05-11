@@ -1,4 +1,3 @@
-"use client";
 import { createContext, useEffect, useState } from "react";
 import { CartItem } from "@/app/types/products";
 
@@ -23,48 +22,50 @@ export default function AddCartProvider({ children }: Props) {
   const [verify, setVerify] = useState<boolean>(false);
   const [value, setValue] = useState<number>(0);
 
-  //pega os produtos ja existentes
   useEffect(() => {
-    const productsString = localStorage.getItem("cart");
-    const products = productsString ? JSON.parse(productsString) : [];
+    if (typeof window !== 'undefined') {
+      const productsString = localStorage.getItem("cart");
+      const products = productsString ? JSON.parse(productsString) : [];
 
-    setCart(products);
+      setCart(products);
+    }
   }, []);
 
-  //adiciona produto no local storage
   const addCart = (newItem: CartItem) => {
-    const isDuplicate = cart.some((item) => item.id === newItem.id);
+    if (typeof window !== 'undefined') {
+      const isDuplicate = cart.some((item) => item.id === newItem.id);
 
-    if (!isDuplicate) {
-      const updatedCart = [...cart, newItem];
+      if (!isDuplicate) {
+        const updatedCart = [...cart, newItem];
+        setCart(updatedCart);
+        localStorage.setItem("cart", JSON.stringify(updatedCart));
+        setVerify(true);
+
+        setTimeout(() => {
+          setVerify(false);
+        }, 1000);
+      } else {
+        alert("Este item já está no carrinho.");
+      }
+    }
+  };
+
+  const removeCart = (itemToRemove: CartItem) => {
+    if (typeof window !== 'undefined') {
+      const updatedCart = cart.filter((item) => item.name !== itemToRemove.name);
+
       setCart(updatedCart);
+
       localStorage.setItem("cart", JSON.stringify(updatedCart));
+
       setVerify(true);
 
       setTimeout(() => {
         setVerify(false);
       }, 1000);
-    } else {
-      alert("Este item já está no carrinho.");
     }
   };
 
-  //remove produto do local storage
-  const removeCart = (itemToRemove: CartItem) => {
-    const updatedCart = cart.filter((item) => item.name !== itemToRemove.name);
-
-    setCart(updatedCart);
-
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
-
-    setVerify(true);
-
-    setTimeout(() => {
-      setVerify(false);
-    }, 1000);
-  };
-
-  //adiciona preço de acordo com a quantidade
   const addValue = (value: number) => {
     setValue((prev) => prev + value);
 
@@ -75,7 +76,6 @@ export default function AddCartProvider({ children }: Props) {
     }, 1000);
   };
 
-  //remove preço de acordo com a quantidade
   const removeValue = (value: number) => {
     setValue((prev) => prev - value);
 
@@ -86,7 +86,6 @@ export default function AddCartProvider({ children }: Props) {
     }, 1000);
   };
   
-  //tirar preço quando o produto é removido
   const restaureValue = (value: number, price: number) => {
     if (value <= 0) {
       setValue(0);

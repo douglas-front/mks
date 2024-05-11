@@ -1,3 +1,4 @@
+"use client"
 import Card from "@/app/components/Card";
 import styles from "./styles.module.scss";
 import { useEffect, useState } from "react";
@@ -6,8 +7,13 @@ import { useProducts } from "@/app/hooks/useProducts";
 import { Products } from "@/app/types/products";
 
 const Hero = () => {
-  //usando o hook para fazer get na api
-  const { data, isLoading } = useProducts();
+  const { data, isLoading, error } = useProducts();
+
+  useEffect(() => {
+    if (error) {
+      console.error("Erro ao carregar produtos:", error);
+    }
+  }, [error]);
 
   return (
     <section className={styles.hero}>
@@ -15,17 +21,20 @@ const Hero = () => {
         {isLoading ? (
           <CardSkelleto />
         ) : (
-          data &&
-          data.products.map((product) => (
-            <Card
-              id={product.id}
-              name={product.name}
-              photo={product.photo}
-              description={product.description}
-              price={parseFloat(product.price)}
-              key={product.id}
-            />
-          ))
+          data && data.products ? (
+            data.products.map((product) => (
+              <Card
+                id={product.id}
+                name={product.name}
+                photo={product.photo}
+                description={product.description}
+                price={parseFloat(product.price)}
+                key={product.id}
+              />
+            ))
+          ) : (
+            <p>Nenhum produto encontrado</p>
+          )
         )}
       </div>
     </section>

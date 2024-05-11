@@ -1,8 +1,8 @@
-"use client";
+"use client"
 import styles from "./styles.module.scss";
 import { TiShoppingCart } from "react-icons/ti";
 import { motion } from "framer-motion";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { OpenCartContext } from "@/app/contexts/openCartProvider";
 
 const AnimationHeader = {
@@ -21,14 +21,20 @@ const AnimationHeader = {
 };
 
 const Nav = () => {
+  const [cartItemsCount, setCartItemsCount] = useState(0);
 
-  //pegando a qunatidade de items no carrinho
-  const productsString = localStorage.getItem("cart");
-  const products = productsString ? JSON.parse(productsString) : null;
-
-  //contexto para abrir o carrinho
   const context = useContext(OpenCartContext) ?? { openCart: () => {} };
   const { openCart } = context;
+
+  useEffect(() => {
+    const productsString = localStorage.getItem("cart");
+    const products = productsString ? JSON.parse(productsString) : [];
+    setCartItemsCount(products.length);
+  }, []);
+
+  const handleOpenCart = () => {
+    openCart();
+  };
 
   return (
     <motion.header
@@ -43,9 +49,9 @@ const Nav = () => {
           <p>Sistemas</p>
         </div>
         <div className={styles.cart}>
-          <button onClick={openCart} title="clique para abrir o carrinho">
+          <button onClick={handleOpenCart} title="Clique para abrir o carrinho">
             <TiShoppingCart />
-            {products?.length}
+            {cartItemsCount}
           </button>
         </div>
       </nav>
