@@ -31,7 +31,7 @@ const Cart = () => {
   }, [cart, value]);
 
   return (
-    <motion.section className={styles.cart} animate={{ x: open ? "-50vw" : "50vw" }}>
+    <motion.section className={styles.cart} animate={{ x: open ? "-50vw" : "50vw" }} transition={{type:"spring", stiffness: 30}}>
       <div className={styles.up}>
         <h1>carrinho </h1>
         <h1>de compras</h1>
