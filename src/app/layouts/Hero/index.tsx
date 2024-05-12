@@ -7,13 +7,7 @@ import { useProducts } from "@/app/hooks/useProducts";
 import { Products } from "@/app/types/products";
 
 const Hero = () => {
-  const { data, isLoading, error } = useProducts();
-
-  useEffect(() => {
-    if (error) {
-      console.error("Erro ao carregar produtos:", error);
-    }
-  }, [error]);
+  const { data, isLoading } = useProducts();
 
   return (
     <section className={styles.hero}>

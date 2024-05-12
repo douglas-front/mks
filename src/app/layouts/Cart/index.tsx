@@ -13,8 +13,8 @@ const Cart = () => {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [totalPrice, setTotalPrice] = useState<number>(0);
 
-  const contextCart = useContext(AddCartContext) ?? { verify: false, value: 0 };
-  const { verify, value } = contextCart;
+  const contextCart = useContext(AddCartContext) ?? { resetComponent: false, value: 0 };
+  const { resetComponent, value } = contextCart;
 
   const context = useContext(OpenCartContext) ?? { open: false, openCart: () => {} };
   const { open, openCart } = context;
@@ -23,7 +23,7 @@ const Cart = () => {
     const productsString = localStorage.getItem("cart");
     const products = productsString ? JSON.parse(productsString) : [];
     setCart(products);
-  }, [verify]);
+  }, [resetComponent]);
 
   useEffect(() => {
     let total = cart.reduce((acc, item) => acc + item.price, 0);
@@ -43,7 +43,7 @@ const Cart = () => {
           padding="0.8vw"
           fontSize="1.45vw"
           title="clique para fechar o carrinho"
-          restoure={() => console.log("po")}
+          restoure={() => {return}}
         />
         <ButtonCloseMobile
           func={openCart}
@@ -51,7 +51,7 @@ const Cart = () => {
           fontSize="8.45vw"
           title="clique para fechar o carrinho"
           color="#0F52BA"
-          restoure={() => console.log("po")}
+          restoure={() => {return}}
         />
       </div>
 
